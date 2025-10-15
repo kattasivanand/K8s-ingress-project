@@ -11,24 +11,24 @@ spec:
   rules:
   - http:
       paths:
-      - path: /
+      - path: /(.*)
         pathType: Prefix
         backend:
           service:
-            name: frontend
+            name: frontend-svc
             port:
               number: 80
-      - path: /catalog
+      - path: /catalog(/|$)(.*)
         pathType: Prefix
         backend:
           service:
-            name: catalog
+            name: catalog-svc
             port:
               number: 80
-      - path: /orders
+      - path: /orders(/|$)(.*)
         pathType: Prefix
         backend:
           service:
-            name: orders
+            name: orders-svc
             port:
               number: 80
