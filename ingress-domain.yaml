@@ -1,35 +1,33 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: k8s-ingress
+  name: app-ingress
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: nginx
+  ingressClassName: nginx  # change if using a different ingress controller
   rules:
-  - host: veera.533266983918.realhandsonlabs.net  # Replace this with your desired domain name
+  - host: your-domain.com  # <-- replace with your domain or public-ip.nip.io
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: frontend
+            name: frontend-svc
             port:
               number: 80
       - path: /catalog
         pathType: Prefix
         backend:
           service:
-            name: catalog
+            name: catalog-svc
             port:
               number: 80
       - path: /orders
         pathType: Prefix
         backend:
           service:
-            name: orders
+            name: orders-svc
             port:
               number: 80
