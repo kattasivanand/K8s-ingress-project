@@ -1,1 +1,36 @@
 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog
+  labels:
+    app: catalog
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: catalog
+  template:
+    metadata:
+      labels:
+        app: catalog
+    spec:
+      containers:
+      - name: catalog
+        image: 656701891231.dkr.ecr.us-east-1.amazonaws.com/catalog:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog-svc
+  labels:
+    app: catalog
+spec:
+  selector:
+    app: catalog
+  ports:
+  - port: 80
+    targetPort: 80
+  type: ClusterIP
